@@ -10,6 +10,8 @@
     <modules>
         <module>message</module>
         <module>thread</module>
+        <module>message</module>
+        <module>rabbitmq</module>
     </modules>
 
 </project>
