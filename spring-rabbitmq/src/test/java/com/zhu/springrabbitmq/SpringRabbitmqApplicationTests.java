@@ -18,4 +18,26 @@ class SpringRabbitmqApplicationTests {
     void helloWorldProvider(){
         rabbitTemplate.convertAndSend("hello","hhh");
     }
+
+    @Test
+    void workProvider(){
+        for (int i = 0; i < 100; i++) {
+            rabbitTemplate.convertAndSend("work","这里是work模型"+i);
+        }
+    }
+
+	@Test
+	void fanoutProvider() {
+		rabbitTemplate.convertAndSend("fanout", "", "这里是fanout模型");
+	}
+
+	@Test
+	void routingProvider() {
+		rabbitTemplate.convertAndSend("routing", "blue", "这里是routing模型");
+	}
+
+	@Test
+	void topicProvider() {
+		rabbitTemplate.convertAndSend("topic", "green.blue", "这里是topic模型");
+	}
 }
