@@ -12,6 +12,7 @@
         <module>thread</module>
         <module>message</module>
         <module>rabbitmq</module>
+        <module>spring-mongodb</module>
     </modules>
 
 </project>
