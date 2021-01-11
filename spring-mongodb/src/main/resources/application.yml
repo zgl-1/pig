@@ -1,12 +1,12 @@
 spring:
-  #\u6570\u636E\u6E90\u914D\u7F6E
+  #数据源配置
   data:
     mongodb:
-      # \u4E3B\u673A\u5730\u5740
+      # 主机地址
       host: 8.131.95.101
-      # \u6570\u636E\u5E93
+      # 数据库
       database: test
-      # \u9ED8\u8BA4\u7AEF\u53E3\u662F27017
+      # 端口
       port: 27017
-      #\u4E5F\u53EF\u4EE5\u4F7F\u7528uri\u8FDE\u63A5
+      #也可以使用uri连接
       #uri: mongodb://8.131.95.10:27017/test
