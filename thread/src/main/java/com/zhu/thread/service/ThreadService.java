@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 /**
  * @author 朱桂林 create 2020/11/9 18:14
  */
-@Service
+//@Service
 public class ThreadService {
 	//核心线程池大小
 	private final int poolSize = 10;

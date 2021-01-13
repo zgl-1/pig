@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author 朱桂林 create 2020/11/9 18:15
  */
-@Configuration
+//@Configuration
 public class ThreadConfig {
 	//核心线程池大小
 	private final int poolSize = 10;
