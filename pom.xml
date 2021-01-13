@@ -13,6 +13,7 @@
         <module>message</module>
         <module>rabbitmq</module>
         <module>spring-mongodb</module>
+        <module>excel</module>
     </modules>
 
 </project>
