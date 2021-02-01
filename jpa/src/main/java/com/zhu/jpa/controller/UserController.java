@@ -6,15 +6,20 @@ package com.zhu.jpa.controller;
 
 import com.zhu.jpa.pojo.UserDto;
 import com.zhu.jpa.pojo.Users;
+import com.zhu.jpa.pojo.UsersDto;
 import com.zhu.jpa.service.UserService;
 import com.zhu.jpa.viewinterface.UserOnlyUsername;
+import com.zhu.jpa.viewinterface.UsersDtoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 朱桂林 create 2021/1/20 16:05
@@ -27,13 +32,14 @@ public class UserController {
 	@RequestMapping("/createUser")
 	public void createUser(){
 		Users user = new Users();
-		user.setUsername("xiaowang");
-		user.setAddress("dsfds");
+		user.setUsername("xiaohuang");
+		user.setAddress("ds332fds");
 		user.setAge(22);
 		userService.createUser(user);
 	}
 
-	@RequestMapping("/find")
+
+	/*@RequestMapping("/find")
 	public Users finduserByUsername(){
 		return userService.finduserByUsername("xiaozhu");
 	}
@@ -68,5 +74,50 @@ public class UserController {
 		UserOnlyUsername xiaozhu = userService.findTopByUsername("xiaozhu");
 		System.out.println(xiaozhu.getUsername());
 		return xiaozhu;
+	}*/
+
+	@RequestMapping("/findByUsername")
+	public Users findByUsername(){
+		return userService.findByUsername("xiaozhu");
+	}
+
+	@RequestMapping("/findByUsernameLike")
+	public List<Users> findByUsernameLike(String username){
+		return userService.findByUsernameLike(username);
+	}
+
+	/*@RequestMapping("/findUsersByUsername")
+	public List<Object> findUsersByUsername(String username){
+		return userService.findUsersByUsername(username);
+	}*/
+
+	@RequestMapping("/findUsersByUsernameByUsersDtoView")
+	public List<UsersDtoView> findUsersByUsernameByUsersDtoView(String username){
+		return userService.findUsersByUsernameByUsersDtoView(username);
+	}
+
+	@RequestMapping("/findUsersByExample")
+	public List<Users> findUsersByExample(String username){
+		return userService.findUsersByExample(username);
+	}
+
+	@RequestMapping("/deleteUsers")
+	public void deleteUsers(String username){
+		userService.deleteUsers(username);
+	}
+
+	@RequestMapping("/delete")
+	public void delete(String username){
+		userService.delete(username);
+	}
+
+	@RequestMapping("/finduser/{id}")
+	public Users finduserById(@PathVariable("id") Users users) {
+		return users;
+	}
+
+	@RequestMapping("/finduser")
+	public Users finduser(@RequestParam("id") Users users) {
+		return users;
 	}
 }
