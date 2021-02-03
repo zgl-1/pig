@@ -9,8 +9,8 @@ class ShiroApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Md5Hash md5Hash = new Md5Hash("123","salt",100);
-		System.out.println(md5Hash.toHex());
+		/*Md5Hash md5Hash = new Md5Hash("123","salt",100);
+		System.out.println(md5Hash.toHex());*/
 	}
 
 }

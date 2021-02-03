@@ -15,7 +15,7 @@ import org.apache.shiro.subject.Subject;
  * @author 朱桂林 create 2021/2/2 15:39
  */
 public class MyRealmTestDemo {
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		SecurityManager securityManager = new DefaultSecurityManager(new MyRealm());
 
 		SecurityUtils.setSecurityManager(securityManager);
@@ -23,5 +23,5 @@ public class MyRealmTestDemo {
 		UsernamePasswordToken token = new UsernamePasswordToken("xiaozhu", "123");
 		subject.login(token);
 		System.out.println(subject.isAuthenticated());
-	}
+	}*/
 }

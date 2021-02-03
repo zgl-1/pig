@@ -18,7 +18,7 @@ import org.apache.shiro.subject.Subject;
  * @author 朱桂林 create 2021/2/2 10:46
  */
 public class TestDemo {
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		//创建安全管理器
 		SecurityManager securityManager =new DefaultSecurityManager(new IniRealm("classpath:shiro.ini"));
 
@@ -44,5 +44,5 @@ public class TestDemo {
 		} catch (AuthenticationException e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

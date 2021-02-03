@@ -4,57 +4,57 @@
  */
 package com.zhu.shiro.realm;
 
+import com.zhu.shiro.dao.UserroleDao;
+import com.zhu.shiro.entity.User;
+import com.zhu.shiro.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 
-import java.util.HashSet;
+import java.nio.Buffer;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * @author 朱桂林 create 2021/2/2 16:52
+ * @author 朱桂林 create 2021/2/3 11:14
  */
-public class MyMd5Realm {/*extends AuthorizingRealm {
-	*//**
-	 * 授权
-	 * @param principalCollection
-	 * @return
-	 *//*
+public class MySpringBootRealm extends AuthorizingRealm {
+	@Value("${shiro.salt}")
+	private String salt;
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private UserroleDao userroleDao;
+
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		String primaryPrincipal = (String) principalCollection.getPrimaryPrincipal();
-		System.out.println(primaryPrincipal);
-
-		Set<String> roles=new HashSet<>();
-		roles.add("admin");
+		User user = userService.findByUsername(primaryPrincipal);
+		Set<String> roles = userroleDao.findByUserid(user.getId()).stream().collect(Collectors.toSet());
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo(roles);
-		authorizationInfo.addStringPermission("user:*:01");
 		return authorizationInfo;
 	}
 
-	*//**
-	 * 认证
-	 * @param authenticationToken
-	 * @return
-	 * @throws AuthenticationException
-	 *//*
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		String principal = (String) authenticationToken.getPrincipal();
-		if ("xiaozhu".equals(principal)) {
-			//654112e1c6bcfae709263e981b4ffe9c是使用shiro的md5加密出来的
-			//Md5Hash md5Hash = new Md5Hash("123","salt",100);
-			//System.out.println(md5Hash.toHex());
-			SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(principal,"654112e1c6bcfae709263e981b4ffe9c", ByteSource.Util.bytes("salt"),getName());
+
+		User user = userService.findByUsername(principal);
+		if (user != null) {
+			SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),ByteSource.Util.bytes(user.getSalt()),getName());
 			return simpleAuthenticationInfo;
 		}
 		return null;
-	}*/
+	}
 }
