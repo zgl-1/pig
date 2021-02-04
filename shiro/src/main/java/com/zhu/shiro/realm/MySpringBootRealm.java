@@ -1,9 +1,6 @@
-/**
- * Copyright 2008-2009. Chongqing Communications Industry Services Co.,Ltd Information Technology Branch. All rights reserved.
- * <a>http://www.crunii.com</a>
- */
 package com.zhu.shiro.realm;
 
+import com.zhu.shiro.config.MyByteSource;
 import com.zhu.shiro.dao.UserroleDao;
 import com.zhu.shiro.entity.User;
 import com.zhu.shiro.service.UserService;
@@ -29,8 +26,6 @@ import java.util.stream.Collectors;
  * @author 朱桂林 create 2021/2/3 11:14
  */
 public class MySpringBootRealm extends AuthorizingRealm {
-	@Value("${shiro.salt}")
-	private String salt;
 	@Autowired
 	private UserService userService;
 
@@ -52,7 +47,7 @@ public class MySpringBootRealm extends AuthorizingRealm {
 
 		User user = userService.findByUsername(principal);
 		if (user != null) {
-			SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),ByteSource.Util.bytes(user.getSalt()),getName());
+			SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),new MyByteSource(user.getSalt()),getName());
 			return simpleAuthenticationInfo;
 		}
 		return null;

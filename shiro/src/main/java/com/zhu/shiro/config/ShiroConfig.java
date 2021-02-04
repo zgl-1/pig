@@ -1,9 +1,6 @@
-/**
- * Copyright 2008-2009. Chongqing Communications Industry Services Co.,Ltd Information Technology Branch. All rights reserved.
- * <a>http://www.crunii.com</a>
- */
 package com.zhu.shiro.config;
 
+import com.zhu.shiro.cache.RedisCacheManager;
 import com.zhu.shiro.realm.MyRealm;
 import com.zhu.shiro.realm.MySpringBootRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -57,7 +54,10 @@ public class ShiroConfig {
 		credentialsMatcher.setHashIterations(100);
 		credentialsMatcher.setHashAlgorithmName("md5");
 		mySpringBootRealm.setCredentialsMatcher(credentialsMatcher);
-		mySpringBootRealm.setCacheManager(new EhCacheManager());//使用ehcache的manager
+
+		//整合ehcache缓存
+		//mySpringBootRealm.setCacheManager(new EhCacheManager());//使用ehcache的manager
+		mySpringBootRealm.setCacheManager(new RedisCacheManager());//使用redisCacheManager
 		mySpringBootRealm.setCachingEnabled(true);//开启全局缓存
 		mySpringBootRealm.setAuthenticationCachingEnabled(true);//开启认证缓存
 		mySpringBootRealm.setAuthenticationCacheName("authenticationCache");
